@@ -36,5 +36,12 @@ class simulation_calc(ABC):
   @abstractmethod
   def run_all_sims(self):
     pass
+  @abstractmethod
+  def computeEnergies(self):
+    pass
+  
+  @abstractmethod
+  def computeG(self):
+    pass
 
 

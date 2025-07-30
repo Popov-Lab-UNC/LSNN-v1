@@ -1,0 +1,17 @@
+
+molecule:
+  name: null
+  cache_path: null #all files will save under cache_path/{name}/
+  smiles: null
+  file_path: null #save directory for SMILES
+  expt: null
+
+calculation:
+  solvent: LSNN #OBC2, GBn2, TIP3P, LSNN
+  method: MBAR #MBAR, TI
+  lambda_electrostatics: [0.0, 1.0]
+  lambda_sterics: [0.0, 1.0]
+  model_dict_path: LSNN-v1/Best_Trained_Models/280KDATASET2Kv3model.dict
+  device: auto #CUDA, CPU, auto
+  report_interval: 100
+  steps: 300

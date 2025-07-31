@@ -3,10 +3,10 @@ import sys
 import os
 
 
-class solvation_calculation():
+class SolvSolve():
 
-  def __init__(self):
-    with open('path_to_your_file.yaml', 'r') as f:
+  def __init__(self, yaml_path):
+    with open(yaml_path, 'r') as f:
       config = yaml.safe_load(f)
 
     self.name = config.molecule.name
@@ -36,13 +36,20 @@ class solvation_calculation():
           self.model = TIP3P(*sim_args)
       case _:
           raise ValueError("Invalid Solvent Provided.")
+    
+    self.expt = config.molecule.expt
+       
+    
        
   def compute_sims(self):
     self.model.run_all_sims
   
   def calculate_deltaG(self):
     self.model.computeEnergies()
-    return self.model.computeG()
+    deltaG = self.model.computeG()
+
+    print(f"Calculated Solvation Energy for {self.name}: {deltaG}, Expt: {self.expt}")
+    return deltaG
      
        
     
@@ -57,4 +64,6 @@ class solvation_calculation():
 
 if __name__ == '__main__':
   yaml_file = str(sys.argv(1))
-  solvation_calculation()
+  res = SolvSolve(yaml_file)
+  res.compute_sims()
+  res.calculate_deltaG()

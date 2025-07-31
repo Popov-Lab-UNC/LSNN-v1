@@ -349,25 +349,7 @@ class LSNN(simulation_calc):
     ),
                             dim=-1)
     batch = torch.zeros(size=(len(gnn_params), )).to(torch.long)                   
-    '''
-    gnn_params = gnn_params.repeat(len(traj[start_index:]))
-
-    batch = torch.arange(0, len(traj[start_index:]))
-    batch = batch.repeat_interleave(len(traj[0].xyz))
-
-    positions = torch.from_numpy(traj[start_index:].xyz).float().reshape(-1, 3)
-
-    lambda_elecs = torch.full((len(traj[start_index:]), 1), lambda_elec)
-    lambda_sters = torch.full((len(traj[start_index:]), 1), lambda_ster)
-
-    _, _, sterics, electrostatics = self.model(positions, lambda_sters, lambda_elecs, torch.tensor(0.0), True, batch, gnn_params)
-
-    return (lambda_elec.item(),
-            (torch.mean(torch.tensor(electrostatics).detach()).item()),
-            lambda_ster.item(),
-            (torch.mean(torch.tensor(sterics).detach()).item()))
     
-    '''
     for idx, coords in enumerate(traj[start_index:].xyz):
         positions = torch.from_numpy(coords).to(self.device)
         positions = positions.float()

@@ -1,6 +1,5 @@
 import yaml
 import sys
-import utils.lr_complex
 import os
 
 
@@ -28,15 +27,23 @@ class solvation_calculation():
     match config.calculation.solvent:
       case "LSNN-MBAR" | "LSNN-TI":
           from methods.LSNN import LSNN
-          simulation_calc = LSNN(config.calculation.model_dict_path, config.calculation.solvent*sim_args)
+          self.model = LSNN(config.calculation.model_dict_path, config.calculation.solvent*sim_args)
       case "OBC2" | "GBn2":
           from methods.OBC2GBN2 import ImplicitSolv
-          simulation_calc = ImplicitSolv(config.calculation.solvent, *sim_args)
+          self.model = ImplicitSolv(config.calculation.solvent, *sim_args)
       case "TIP3P":
           from methods.TIP3P import TIP3P
-          simulation_calc = TIP3P(*sim_args)
+          self.model = TIP3P(*sim_args)
       case _:
           raise ValueError("Invalid Solvent Provided.")
+       
+  def compute_sims(self):
+    self.model.run_all_sims
+  
+  def calculate_deltaG(self):
+    self.model.computeEnergies()
+    return self.model.computeG()
+     
        
     
 

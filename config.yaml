@@ -7,10 +7,11 @@ molecule:
   expt: null
 
 calculation:
-  solvent: LSNN-MBAR #OBC2, GBn2, TIP3P, LSNN-MBAR, LSNN-TI
+  solvent: LSNN-MBAR #obc2, gbn2, tip3p, LSNN-MBAR, LSNN-TI
+  device: auto #CUDA, CPU, auto 
   lambda_electrostatics: [0.0, 1.0]
   lambda_sterics: [0.0, 1.0]
   model_dict_path: LSNN-v1/Best_Trained_Models/280KDATASET2Kv3model.dict
-  device: auto #CUDA, CPU, auto
+  
   report_interval: 100
   steps: 300

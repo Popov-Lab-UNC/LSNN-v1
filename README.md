@@ -34,6 +34,6 @@ calculation:
 
 Run the command: 
 ```bash
-python solv.py config-yml
+python solv.py 'config-yml'
 ```
 
